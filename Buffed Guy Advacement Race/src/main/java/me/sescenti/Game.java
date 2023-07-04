@@ -1,9 +1,6 @@
 package me.sescenti;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -24,7 +21,7 @@ public class Game {
     private double hp = 20;
     private double atk = 1;
     private double spd = 0.1;
-    private int runnerLives = 10;
+    private int runnerLives = 20;
 
     private boolean endAdv = false;
     private boolean witherAdv = false;
@@ -49,9 +46,9 @@ public class Game {
     private final String[] hardAdvs = {"nether/summon_wither", "nether/create_beacon", "nether/all_potions", "end/kill_dragon", "end/dragon_egg", "end/enter_end_gateway",
             "end/elytra", "end/levitate" ,"adventure/hero_of_the_village", "adventure/totem_of_undying", "adventure/two_birds_one_arrow", "husbandry/obtain_netherite_hoe",
             "adventure/lightning_rod_with_villager_no_fire", "adventure/throw_trident", "adventure/kill_mob_near_sculk_catalyst", "adventure/trim_with_all_exclusive_armor_patterns",
-        "adventure/spyglass_at_dragon", "adventure/very_very_frightening", "husbandry/allay_deliver_cake_to_note_block", "husbandry/froglights"};
+        "adventure/spyglass_at_dragon", "adventure/very_very_frightening", "husbandry/allay_deliver_cake_to_note_block", "husbandry/froglights", "adventure/arbalistic"};
 
-    private final String[] expertAdvs = {"nether/netherite_armor", "nether/create_full_beacon", "nether/all_effects", "adventure/kill_all_mobs", "adventure/arbalistic",
+    private final String[] expertAdvs = {"nether/netherite_armor", "nether/create_full_beacon", "nether/all_effects", "adventure/kill_all_mobs",
             "adventure/adventuring_time", "husbandry/bred_all_animals", "husbandry/complete_catalogue", "husbandry/balanced_diet"};
     private Advancement[] advs = new Advancement[10];
     private boolean[] completed = new boolean[10];
@@ -74,14 +71,14 @@ public class Game {
             //0 min
             boss = (Player) Bukkit.getOnlinePlayers().toArray()[(int) (Math.random() * Bukkit.getOnlinePlayers().size())];
             for (Player p : Bukkit.getOnlinePlayers()) {
-                p.sendMessage("The boss is " + boss.getDisplayName());
+                p.sendTitle("The boss is " + boss.getDisplayName(), "", 5, 100, 5);
             }
             System.out.println("[Boss vs Runners] The boss is " + boss.getDisplayName());
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.sendMessage("Your Advancements are:");
                 for (Advancement a : advs) {
-                    p.sendMessage(a.getKey().getKey());
+                    p.sendMessage(ChatColor.GREEN + "[" + a.getDisplay().getTitle() + "]");
                 }
             }
             for (Advancement a : advs) {
@@ -178,13 +175,13 @@ public class Game {
         boss = null;
         regenLvl = 5;
         strengthLvl = 4;
-        hpLvl = 10;
+        hpLvl = 20;
         hasteLvl = 3;
-        speedLvl = 3;
+        speedLvl = 4;
         hp = 20;
         atk = 1;
         spd = 0.1;
-        runnerLives = 10;
+        runnerLives = 20;
         Arrays.fill(advs, null);
         Arrays.fill(completed, false);
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -321,7 +318,9 @@ public class Game {
 
     public void completedAdv(){
         for(Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage("PLAYER COORDS REVEALED");
+            if(!p.getDisplayName().equals(boss.getDisplayName()))
+                p.sendMessage("PLAYER DISTANCE REVEALED");
+
             if(boss.getLocation().getWorld().equals(p.getLocation().getWorld())) {
                 boss.sendMessage("PLAYER " + p.getDisplayName() + " is " + distCalc(boss.getLocation(), p.getLocation()) + "m away");
             } else {
@@ -367,7 +366,7 @@ public class Game {
         runnerLives --;
 
         hp += 2;
-        atk ++;
+        atk += 0.1;
         spd *= 1.03;
         updateBossEffects();
 
