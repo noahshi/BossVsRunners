@@ -1,0 +1,4 @@
+name: BuffGuyAdvancementRace
+version: 1.0-SNAPSHOT
+main: me.sescenti.BuffGuyAdv
+api-version: 1.19
