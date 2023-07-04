@@ -25,6 +25,6 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: HorcruxHuntPlugin-1193
+        name: HorcruxHuntPlugin-1193.jar
         path: Buffed Guy Advacement Race/src/main/java/me/sescenti/BuffGuyAdv.java
 
