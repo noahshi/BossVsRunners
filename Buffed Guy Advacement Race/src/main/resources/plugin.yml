@@ -1,0 +1,4 @@
+name: BuffGuyAdvancementRace
+version: ${project.version}
+main: me.sescenti.BuffGuyAdv
+api-version: 1.19
