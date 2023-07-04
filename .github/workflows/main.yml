@@ -26,5 +26,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: HorcruxHuntPlugin-1193
-        path: target/Buffed Guy Advacement Race/src/main/java/me/sescenti/BuffGuyAdv.java
+        path: Buffed Guy Advacement Race/src/main/java/me/sescenti/BuffGuyAdv.java
 
